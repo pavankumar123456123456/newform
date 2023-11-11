@@ -5,6 +5,8 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -12,16 +14,17 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const Login = () => {
   const [companyName, setCompanyName] = useState('');
+  const [loading, setLoading] = useState(false);
   const [spocName, setSpocName] = useState('');
   const [headCount, setHeadCount] = useState('');
   const [staffStrength, setStaffStrength] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
   //   const navigate = useNavigate();
 
   const getGeoLocation = () => {
+    setLoading(true);
     // Check if the browser supports Geolocation
     if ('geolocation' in navigator) {
       // Get current position
@@ -36,6 +39,7 @@ const Login = () => {
 
           console.log('Longitude: ' + longitude);
           setLong(longitude);
+          setLoading(false);
         },
         function (error) {
           // Handle errors (e.g., user denied access or unable to determine location)
@@ -44,29 +48,23 @@ const Login = () => {
       );
     } else {
       console.log('Geolocation is not supported by this browser.');
+      setLoading(false);
     }
   };
 
   const handleSubmit = (event) => {
+    
     event.preventDefault();
+    let obj = {
+      lat,
+      long,
+      company_name: companyName,
+      spoc_name: spocName,
+      headcount: headCount,
+      staff_strength: staffStrength,
+    };
 
-    if (mobile && password) {
-      let body = {
-        mobile_number: mobile,
-        password: password,
-      };
-
-      if (mobile == '9876543210' && password == '12345') {
-        sessionStorage.setItem('user-token', 'tokenadded');
-
-        handleClick();
-        setTimeout(() => {
-          navigate('/scanner');
-        }, 1000);
-      } else {
-        handleClick();
-      }
-    }
+    console.log(obj);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -133,11 +131,12 @@ const Login = () => {
               required
               fullWidth
             />
-
             <Grid item sx={{ mb: 3 }}>
-              <div style={{ fontWeight: 300 }}>
-                lat : {lat} & long: {long}{' '}
-              </div>
+              {lat && long && (
+                <div style={{ fontWeight: 300 }}>
+                  lat : {lat} & long : {long}{' '}
+                </div>
+              )}
             </Grid>
 
             <TextField
@@ -164,9 +163,21 @@ const Login = () => {
               value={staffStrength}
             />
 
-            <Button variant="contained" color="success" type="submit" fullWidth>
+            {/* <Button variant="contained" color="success" type="submit" fullWidth>
               Submit
-            </Button>
+            </Button> */}
+            <LoadingButton
+              color="success"
+              type="submit"
+              //   onClick={handleClick}
+              loading={loading}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="contained"
+              fullWidth
+            >
+              <span>Submit</span>
+            </LoadingButton>
           </form>
         </Grid>
       </Grid>
