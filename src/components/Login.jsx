@@ -53,7 +53,6 @@ const Login = () => {
   };
 
   const handleSubmit = (event) => {
-    
     event.preventDefault();
     let obj = {
       lat,
@@ -63,6 +62,8 @@ const Login = () => {
       headcount: headCount,
       staff_strength: staffStrength,
     };
+
+    handleClick();
 
     console.log(obj);
   };
@@ -184,8 +185,12 @@ const Login = () => {
 
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-            Enter correct details to login !
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: '100%' }}
+          >
+            Data Added Successfully !
           </Alert>
         </Snackbar>
       </Stack>
