@@ -100,7 +100,7 @@ const Login = () => {
               Form Data
             </h2>
             <TextField
-              label="Company name capture"
+              label="Enter Company Name"
               onChange={(e) => setCompanyName(e.target.value)}
               required
               variant="outlined"
@@ -112,7 +112,7 @@ const Login = () => {
             />
 
             <TextField
-              label="HR spock Name/Procurment spoc Name"
+              label="Enter HR Representative Name"
               onChange={(e) => setSpocName(e.target.value)}
               required
               variant="outlined"
@@ -124,6 +124,32 @@ const Login = () => {
             />
 
             <TextField
+              label="Enter Total Employee / Seating count"
+              onChange={(e) => setHeadCount(e.target.value)}
+              required
+              variant="outlined"
+              color="secondary"
+              type="number"
+              sx={{ mb: 3 }}
+              fullWidth
+              value={headCount}
+            />
+
+            <TextField
+              label="Total Buidling area Sq Ft."
+              onChange={(e) => setStaffStrength(e.target.value)}
+              required
+              variant="outlined"
+              color="secondary"
+              type="number"
+              sx={{ mb: 3 }}
+              fullWidth
+              value={staffStrength}
+            />
+
+            <TextField
+              InputLabelProps={{ shrink: true }}
+              label="Take Building Photo"
               color="secondary"
               accept="image/*"
               capture="camera"
@@ -139,30 +165,6 @@ const Login = () => {
                 </div>
               )}
             </Grid>
-
-            <TextField
-              label="Capture HeadCount / Building Area SQFT"
-              onChange={(e) => setHeadCount(e.target.value)}
-              required
-              variant="outlined"
-              color="secondary"
-              type="number"
-              sx={{ mb: 3 }}
-              fullWidth
-              value={headCount}
-            />
-
-            <TextField
-              label="Capture StaffStrength(Approx Seating)"
-              onChange={(e) => setStaffStrength(e.target.value)}
-              required
-              variant="outlined"
-              color="secondary"
-              type="number"
-              sx={{ mb: 3 }}
-              fullWidth
-              value={staffStrength}
-            />
 
             {/* <Button variant="contained" color="success" type="submit" fullWidth>
               Submit
